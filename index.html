@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angelina & Adam's Wedding</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c9a87a;
+      --rose: #d4a59a;
+      --ivory: #f8f4e9;
+      --taupe: #5a4a3f;
+    }
+    
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--taupe);
+      background-color: #faf6f0;
+      scroll-behavior: smooth;
+    }
+    
+    .romantic-font {
+      font-family: 'Great Vibes', cursive;
+    }
+    
+    .elegant-font {
+      font-family: 'Cormorant Garamond', serif;
+    }
+    
+    .nav-link {
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      color: var(--gold);
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--gold);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .section-divider {
+      border-top: 1px solid rgba(201, 168, 122, 0.3);
+      width: 100px;
+      margin: 2rem auto;
+    }
+  </style>
+  <style>
+    /* Custom cursor sparkles */
+    .cursor-sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #c9a87a; 
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: multiply;
+      animation: sparkle-fade 1s forwards;
+      box-shadow: 0 0 8px 2px #d4a59a; 
+    }
+  
+    @keyframes sparkle-fade {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.5) translateY(20px);
+      }
+    }
+  </style>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const colors = ['#c9a87a', '#d4a59a', '#e6c8a0']; 
+      
+      // Follow mouse with sparkles
+      document.addEventListener('mousemove', function(e) {
+        if (Math.random() > 0.7) { // Control sparkle frequency
+          const sparkle = document.createElement('div');
+          sparkle.className = 'cursor-sparkle';
+          
+          // Random size and position offset
+          const size = Math.random() * 4 + 3;
+          const offsetX = (Math.random() - 0.5) * 20;
+          const offsetY = (Math.random() - 0.5) * 20;
+          
+          sparkle.style.width = `${size}px`;
+          sparkle.style.height = `${size}px`;
+          sparkle.style.left = `${e.clientX + offsetX}px`;
+          sparkle.style.top = `${e.clientY + offsetY}px`;
+          sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          
+          document.body.appendChild(sparkle);
+          
+          // Remove after animation completes
+          setTimeout(() => {
+            sparkle.remove();
+          }, 1000);
+        }
+      });
+      
+      // Extra sparkles on click
+      document.addEventListener('click', function(e) {
+        for (let i = 0; i < 15; i++) {
+          setTimeout(() => {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'cursor-sparkle';
+            
+            const size = Math.random() * 8 + 4;
+            const offsetX = (Math.random() - 0.5) * 40;
+            const offsetY = (Math.random() - 0.5) * 40;
+            
+            sparkle.style.width = `${size}px`;
+            sparkle.style.height = `${size}px`;
+            sparkle.style.left = `${e.clientX + offsetX}px`;
+            sparkle.style.top = `${e.clientY + offsetY}px`;
+            sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            sparkle.style.boxShadow = `0 0 ${size*1.5}px ${size/2}px ${colors[Math.floor(Math.random() * colors.length)]}`;
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+              sparkle.remove();
+            }, 1000);
+          }, i * 50);
+        }
+      });
+    });
+  </script>
+  <style>
+    /* Sparkle styles */
+    .sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #c9a87a; /* Gold color matching your buttons */
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      animation: sparkle-fall linear forwards;
+      box-shadow: 0 0 10px 2px #d4a59a; /* Rose gold glow */
+    }
+  
+    @keyframes sparkle-fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+  
+  <!-- Sparkles container (place this right after opening <body> tag) -->
+  <div id="sparkles-container"></div>
+  
+  <script>
+    // Sparkle Animation Script
+    document.addEventListener('DOMContentLoaded', function() {
+      const colors = ['#c9a87a', '#d4a59a', '#e6c8a0']; // Gold gradient colors matching your buttons
+      
+      function createSparkle() {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        
+        // Random properties
+        const size = Math.random() * 8 + 4;
+        const duration = Math.random() * 3 + 2;
+        const delay = Math.random() * 5;
+        const left = Math.random() * window.innerWidth;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Apply styles
+        sparkle.style.width = `${size}px`;
+        sparkle.style.height = `${size}px`;
+        sparkle.style.left = `${left}px`;
+        sparkle.style.top = '-10px';
+        sparkle.style.backgroundColor = color;
+        sparkle.style.animationDuration = `${duration}s`;
+        sparkle.style.animationDelay = `${delay}s`;
+        
+        document.getElementById('sparkles-container').appendChild(sparkle);
+        
+        // Remove after animation completes
+        setTimeout(() => {
+          sparkle.remove();
+        }, duration * 1000);
+      }
+      
+      // Create initial sparkles
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createSparkle, i * 300);
+      }
+      
+      // Continue creating sparkles
+      setInterval(createSparkle, 500);
+      
+      // Create sparkles on click
+      document.addEventListener('click', function(e) {
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            
+            const size = Math.random() * 10 + 5;
+            const duration = Math.random() * 2 + 1;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            sparkle.style.width = `${size}px`;
+            sparkle.style.height = `${size}px`;
+            sparkle.style.left = `${e.clientX + (Math.random() * 40 - 20)}px`;
+            sparkle.style.top = `${e.clientY + (Math.random() * 40 - 20)}px`;
+            sparkle.style.backgroundColor = color;
+            sparkle.style.animationDuration = `${duration}s`;
+            
+            document.getElementById('sparkles-container').appendChild(sparkle);
+            
+            setTimeout(() => {
+              sparkle.remove();
+            }, duration * 1000);
+          }, i * 50);
+        }
+      });
+    });
+  </script>
+  <style>
+  /* Sparkle styles */
+  .sparkle {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #c9a87a; /* Gold color matching your buttons */
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    animation: sparkle-fall linear forwards;
+    box-shadow: 0 0 10px 2px #d4a59a; /* Rose gold glow */
+  }
+
+  @keyframes sparkle-fall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+</style>
+
+<!-- Sparkles container (place this right after opening <body> tag) -->
+<div id="sparkles-container"></div>
+
+<script>
+  // Sparkle Animation Script
+  document.addEventListener('DOMContentLoaded', function() {
+    const colors = ['#c9a87a', '#d4a59a', '#e6c8a0']; // Gold gradient colors matching your buttons
+    
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      
+      // Random properties
+      const size = Math.random() * 8 + 4;
+      const duration = Math.random() * 3 + 2;
+      const delay = Math.random() * 5;
+      const left = Math.random() * window.innerWidth;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      
+      // Apply styles
+      sparkle.style.width = `${size}px`;
+      sparkle.style.height = `${size}px`;
+      sparkle.style.left = `${left}px`;
+      sparkle.style.top = '-10px';
+      sparkle.style.backgroundColor = color;
+      sparkle.style.animationDuration = `${duration}s`;
+      sparkle.style.animationDelay = `${delay}s`;
+      
+      document.getElementById('sparkles-container').appendChild(sparkle);
+      
+      // Remove after animation completes
+      setTimeout(() => {
+        sparkle.remove();
+      }, duration * 1000);
+    }
+    
+    // Create initial sparkles
+    for (let i = 0; i < 20; i++) {
+      setTimeout(createSparkle, i * 300);
+    }
+    
+    // Continue creating sparkles
+    setInterval(createSparkle, 500);
+    
+    // Create sparkles on click
+    document.addEventListener('click', function(e) {
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'sparkle';
+          
+          const size = Math.random() * 10 + 5;
+          const duration = Math.random() * 2 + 1;
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          
+          sparkle.style.width = `${size}px`;
+          sparkle.style.height = `${size}px`;
+          sparkle.style.left = `${e.clientX + (Math.random() * 40 - 20)}px`;
+          sparkle.style.top = `${e.clientY + (Math.random() * 40 - 20)}px`;
+          sparkle.style.backgroundColor = color;
+          sparkle.style.animationDuration = `${duration}s`;
+          
+          document.getElementById('sparkles-container').appendChild(sparkle);
+          
+          setTimeout(() => {
+            sparkle.remove();
+          }, duration * 1000);
+        }, i * 50);
+      }
+    });
+  });
+</script>
+
+</head>
+<body class="antialiased">
+
+  <!-- Right-aligned Navigation -->
+  <nav class="fixed w-full bg-white z-50 shadow-sm py-4 px-8 flex justify-end">
+    <div class="flex space-x-8">
+      <a href="#our-story" class="nav-link text-sm text-gray-600 relative">Our Story</a>
+      <a href="#details" class="nav-link text-sm text-gray-600 relative">Details</a>
+      <a href="#rsvp" class="nav-link text-sm text-gray-600 relative">RSVP</a>
+      <a href="#registry" class="nav-link text-sm text-gray-600 relative">Registry</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="our-story" class="pt-24 pb-16 md:pt-32 md:pb-24 px-6 text-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); background-color: rgba(0,0,0,0.4); background-blend-mode: overlay;">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="romantic-font text-5xl md:text-7xl text-[#c9a87a] mb-4">Angelina & Adam</h1>
+      <p class="elegant-font italic text-xl md:text-2xl text-[#f8f4e9] mb-6">Together with their families, invite you to celebrate their marriage</p>
+      
+      <div class="section-divider"></div>
+      
+      <p class="elegant-font text-lg md:text-xl text-[#f8f4e9]">Saturday, the fourteenth of June</p>
+      <p class="elegant-font text-lg md:text-xl text-[#f8f4e9] mb-8">Two thousand and twenty-five</p>
+      <p class="elegant-font text-lg md:text-xl text-[#f8f4e9] mb-12">Toronto, Canada</p>
+      
+      <a href="#rsvp" class="inline-block px-8 py-3 bg-gradient-to-r from-[#c9a87a] to-[#d4a59a] text-[#f8f4e9] tracking-wider uppercase font-medium transition-all hover:shadow-lg hover:translate-y-[-2px]">
+        We Hope You'll Join Us
+      </a>
+    </div>
+  </section>
+
+  <!-- Wedding Details -->
+  <section id="details" class="py-20 px-6 bg-[#faf6f0]">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="romantic-font text-4xl text-center text-[#c9a87a] mb-16">Wedding Details</h2>
+      
+      <div class="grid md:grid-cols-2 gap-12 mb-20">
+        <div class="text-center">
+          <h3 class="elegant-font text-2xl text-[#d4a59a] mb-6">The Ceremony</h3>
+          <p class="elegant-font text-lg mb-2">4:00 in the afternoon</p>
+          <p class="elegant-font text-lg mb-4">The Carlu</p>
+          <p class="elegant-font">444 Yonge Street, 7th Floor, Toronto</p>
+        </div>
+        
+        <div class="text-center">
+          <h3 class="elegant-font text-2xl text-[#d4a59a] mb-6">The Reception</h3>
+          <p class="elegant-font text-lg mb-2">6:00 in the evening</p>
+          <p class="elegant-font text-lg mb-4">The Omni King Edward Hotel</p>
+          <p class="elegant-font">37 King Street East, Toronto</p>
+        </div>
+      </div>
+      
+      <div class="max-w-3xl mx-auto text-center">
+        <h3 class="elegant-font text-2xl text-[#d4a59a] mb-6">Accommodations</h3>
+        <p class="elegant-font mb-6">We've arranged special rates at these wonderful hotels:</p>
+        
+        <ul class="elegant-font space-y-4">
+          <li>• Fairmont Royal York - Mention "Angelina & Adam Wedding"</li>
+          <li>• The St. Regis Toronto - Special wedding rates available</li>
+          <li>• The Windsor Arms - Exclusive discount for our guests</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP Section -->
+  <section id="rsvp" class="py-20 px-6 bg-cover bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1518630382445-c316439c3b3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); background-color: rgba(250, 246, 240, 0.9); background-blend-mode: overlay;">
+    <div class="max-w-2xl mx-auto bg-white bg-opacity-90 p-8 md:p-12">
+      <h2 class="romantic-font text-4xl text-center text-[#c9a87a] mb-8">Kindly Respond</h2>
+      
+      <form class="space-y-8">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <label class="block text-left mb-2 font-montserrat text-xs tracking-widest text-gray-500 uppercase">Your Name</label>
+            <input type="text" class="w-full py-3 border-b border-[#c9a87a] bg-transparent focus:border-[#d4a59a] focus:outline-none" placeholder="Full name" required>
+          </div>
+          
+          <div>
+            <label class="block text-left mb-2 font-montserrat text-xs tracking-widest text-gray-500 uppercase">Your Email</label>
+            <input type="email" class="w-full py-3 border-b border-[#c9a87a] bg-transparent focus:border-[#d4a59a] focus:outline-none" placeholder="Email address" required>
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <label class="block text-left mb-2 font-montserrat text-xs tracking-widest text-gray-500 uppercase">Number of Guests</label>
+            <select class="w-full py-3 border-b border-[#c9a87a] bg-transparent focus:border-[#d4a59a] focus:outline-none">
+              <option value="1">1 guest</option>
+              <option value="2" selected>2 guests</option>
+              <option value="3">3 guests</option>
+              <option value="4">4 guests</option>
+              <option value="4">4+ guests</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-left mb-2 font-montserrat text-xs tracking-widest text-gray-500 uppercase">Will You Attend?</label>
+            <select class="w-full py-3 border-b border-[#c9a87a] bg-transparent focus:border-[#d4a59a] focus:outline-none">
+              <option value="yes" selected>Joyfully Accept</option>
+              <option value="no">Regretfully Decline</option>
+            </select>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-left mb-2 font-montserrat text-xs tracking-widest text-gray-500 uppercase">Your Message</label>
+          <textarea rows="4" class="w-full py-3 border-b border-[#c9a87a] bg-transparent focus:border-[#d4a59a] focus:outline-none resize-none" placeholder="We'd love to hear from you..."></textarea>
+        </div>
+        
+        <button type="submit" class="w-full py-4 bg-gradient-to-r from-[#c9a87a] to-[#d4a59a] text-[#f8f4e9] tracking-wider uppercase font-medium transition-all hover:shadow-lg">
+          Send Response
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Gift Registry -->
+  <section id="registry" class="py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="romantic-font text-4xl text-[#c9a87a] mb-4">Gift Registry</h2>
+      <p class="elegant-font text-lg max-w-2xl mx-auto mb-12">
+        Your presence at our wedding is gift enough. For those who wish to contribute, 
+        we've registered at these locations:
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-8 border border-[#f0e6d6]">
+          <div class="text-4xl mb-4">🌴</div> <!-- Couple emoji -->
+          <h3 class="elegant-font text-xl text-[#d4a59a] mb-4">Honeymoon Fund</h3>
+          <a href="#" class="inline-block px-6 py-2 border border-[#c9a87a] text-[#c9a87a] hover:bg-[#c9a87a] hover:text-[#f8f4e9] transition-colors">
+            Contribute
+          </a>
+        </div>
+        
+        <div class="p-8 border border-[#f0e6d6]">
+          <div class="text-4xl mb-4">🏠</div> <!-- House emoji -->
+          <h3 class="elegant-font text-xl text-[#d4a59a] mb-4">Home Essentials</h3>
+          <a href="#" class="inline-block px-6 py-2 border border-[#c9a87a] text-[#c9a87a] hover:bg-[#c9a87a] hover:text-[#f8f4e9] transition-colors">
+            View Registry
+          </a>
+        </div>
+        
+        <div class="p-8 border border-[#f0e6d6]">
+          <div class="text-4xl mb-4">❤️</div> <!-- Heart emoji -->
+          <h3 class="elegant-font text-xl text-[#d4a59a] mb-4">Charity Donations</h3>
+          <a href="#" class="inline-block px-6 py-2 border border-[#c9a87a] text-[#c9a87a] hover:bg-[#c9a87a] hover:text-[#f8f4e9] transition-colors">
+            Donate
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-[#f8f4e9] text-center">
+    <p class="elegant-font text-lg mb-6">We look forward to celebrating with you!</p>
+    <p class="romantic-font text-3xl text-[#c9a87a] mb-8">Angelina & Adam</p>
+    
+    <div class="flex justify-center space-x-6 elegant-font">
+      <a href="#" class="text-[#d4a59a] hover:text-[#c9a87a] transition-colors">Contact</a>
+      <span class="text-gray-400">•</span>
+      <a href="#" class="text-[#d4a59a] hover:text-[#c9a87a] transition-colors">FAQs</a>
+      <span class="text-gray-400">•</span>
+      <a href="#" class="text-[#d4a59a] hover:text-[#c9a87a] transition-colors">Travel</a>
+    </div>
+  </footer>
+
+</body>
+</html>
